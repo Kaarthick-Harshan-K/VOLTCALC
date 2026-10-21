@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculate your bimonthly Tamil Nadu electricity bill accurately using the new revised tariff chart. Up to 200 free units subsidy and detailed slab breakdown.">
+    <meta name="theme-color" content="#080f1e">
+    <title>VoltCalc TN — Tamil Nadu Electricity Bill Calculator (New Tariff)</title>
+    <!-- Google Fonts Preconnect for optimal font rendering -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Modern Stylesheet (Explicit relative path) -->
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- Favicon SVG (Electric Lightning Bolt - No TNEB logo) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f2fe'><path d='M13 2L3 14h9l-1 8 10-12h-9l1-8z'/></svg>">
+</head>
+<body>
+
+    <!-- Ambient High Voltage Transformer Background -->
+    <div class="bg-transformer" aria-hidden="true"></div>
+    <div class="bg-overlay" aria-hidden="true"></div>
+    <canvas id="electric-canvas" class="electric-canvas" aria-hidden="true"></canvas>
+
+    <div class="app-container">
+        
+        <!-- Header / Navigation Bar -->
+        <header class="navbar">
+            <div class="brand-wrapper">
+                <div class="brand-icon-box" title="Power Grid Electricity Calculator">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                </div>
+                <div class="brand-title-group">
+                    <h1>VoltCalc <span class="highlight">TN</span></h1>
+                    <p class="brand-tagline">Tamil Nadu Electricity Tariff Calculator &bull; New Tariff Schedule</p>
+                </div>
+            </div>
+
+            <!-- Requirement 1: Button for toggling dark mode -->
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Toggle Dark and Light Mode">
+                    <div class="theme-icon-container">
+                        <!-- Sun Icon for Light Mode -->
+                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <!-- Moon Icon for Dark Mode -->
+                        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </div>
+                    <span id="theme-text">Theme</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Live Power Grid Status Ribbon -->
+        <section class="hero-ribbon">
+            <div class="ribbon-item">
+                <span class="dot"></span>
+                <span>Active Tariff: <strong>Tamil Nadu New Tariff Slabs</strong></span>
+            </div>
+            <div class="ribbon-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--electric-cyan);">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>Billing Period: <strong>Bimonthly (Every 2 Months)</strong></span>
+            </div>
+            <div class="ribbon-item">
+                <span style="color: var(--electric-green); font-weight: 700;">★ Up to 200 Free Units Subsidy (Consumption ≤ 500)</span>
+            </div>
+        </section>
+
+        <!-- Main Calculator Grid -->
+        <main class="main-grid">
+
+            <!-- Left Card: Input & Controls -->
+            <section class="glass-card" aria-labelledby="input-heading">
+                <div class="card-header">
+                    <span class="badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        Consumption Input
+                    </span>
+                    <h2 id="input-heading" class="card-title">Meter Reading</h2>
+                    <p class="card-subtitle">Enter your bimonthly domestic electricity consumption recorded in kWh units.</p>
+                </div>
+
+                <!-- Requirement 4: Field input where user enters electricity units used in 2 months -->
+                <div class="form-group">
+                    <div class="input-label-row">
+                        <label for="units-input" class="input-label">
+                            Units Used in 2 Months
+                        </label>
+                        <span class="bimonthly-tag">Bi-Monthly Cycle</span>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <input 
+                            type="number" 
+                            id="units-input" 
+                            class="electric-meter-input" 
+                            placeholder="e.g. 350" 
+                            min="0" 
+                            max="99999" 
+                            step="1" 
+                            value="350"
+                            autocomplete="off"
+                            inputmode="numeric"
+                        >
+                        <div class="input-controls-group">
+                            <!-- Stepper arrow buttons placed just before the SI units -->
+                            <div class="stepper-arrows" aria-label="Adjust units">
+                                <button type="button" id="btn-unit-inc" class="stepper-arrow-btn" aria-label="Increase units" title="Increase units">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="18 15 12 9 6 15"></polyline>
+                                    </svg>
+                                </button>
+                                <button type="button" id="btn-unit-dec" class="stepper-arrow-btn" aria-label="Decrease units" title="Decrease units">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="unit-addon">Units (kWh)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Presets -->
+                <div class="presets-label">Quick Consumption Presets</div>
+                <div class="presets-container" role="group" aria-label="Preset Units">
+                    <button type="button" class="preset-chip" data-units="150">150 Units (100% Free)</button>
+                    <button type="button" class="preset-chip" data-units="200">200 Units (Free Limit)</button>
+                    <button type="button" class="preset-chip active" data-units="350">350 Units</button>
+                    <button type="button" class="preset-chip" data-units="500">500 Units (Upto 500 Max)</button>
+                    <button type="button" class="preset-chip" data-units="650">650 Units (Above 500)</button>
+                    <button type="button" class="preset-chip" data-units="1200">1,200 Units</button>
+                </div>
+
+                <!-- Calculate Button -->
+                <button type="button" id="btn-calculate" class="btn-calculate">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    <span>Calculate Electricity Bill</span>
+                </button>
+            </section>
+
+            <!-- Right Card: Bill Results & Output -->
+            <section class="glass-card results-card" aria-labelledby="results-heading">
+                <div class="card-header" style="margin-bottom: 0;">
+                    <span class="badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                        Bill Calculation Result
+                    </span>
+                    <h2 id="results-heading" class="card-title">Estimated Payable Amount</h2>
+                </div>
+
+                <!-- Requirement 5: Output in rupees where the amount to be paid is displayed -->
+                <div class="bill-hero-box pulse-glow">
+                    <div class="bill-hero-top">
+                        <span class="bill-caption">Total Amount to be Paid</span>
+                        <span id="tier-badge" class="slab-badge tier-subsidized">Upto 500 Units (200 Free Units)</span>
+                    </div>
+
+                    <div class="bill-amount-display">
+                        <span class="currency-sym">₹</span>
+                        <span id="bill-amount">0.00</span>
+                    </div>
+
+                    <div class="bill-hero-meta">
+                        Energy charges calculated on bimonthly domestic tariff rules.
+                    </div>
+                </div>
+
+                <!-- Requirement 6: Cost per unit used as per the slab given by TNEB -->
+                <div class="metrics-grid">
+                    <!-- Average / Effective Cost per Unit -->
+                    <div class="metric-tile">
+                        <div class="metric-title">Effective Cost Per Unit</div>
+                        <div id="avg-rate" class="metric-value accent-cyan">₹ 0.00 / unit</div>
+                        <div class="metric-sub">Total Payable &divide; Consumed Units</div>
+                    </div>
+
+                    <!-- Free Units Subsidy -->
+                    <div class="metric-tile">
+                        <div class="metric-title">Subsidized Free Units</div>
+                        <div id="free-units" class="metric-value" style="color: var(--electric-green);">200 Units</div>
+                        <div id="free-units-sub" class="metric-sub">1 to 200 units free (upto 500U)</div>
+                    </div>
+
+                    <!-- Billed Units -->
+                    <div class="metric-tile">
+                        <div class="metric-title">Chargeable Units</div>
+                        <div id="billable-units" class="metric-value">150 Units</div>
+                        <div class="metric-sub">Units beyond free subsidy</div>
+                    </div>
+
+                    <!-- Billing Cycle -->
+                    <div class="metric-tile">
+                        <div class="metric-title">Billing Cycle</div>
+                        <div class="metric-value">60 Days</div>
+                        <div class="metric-sub">Bi-monthly billing period</div>
+                    </div>
+                </div>
+
+                <!-- Proactive Slab Notice Alert (e.g. Near 500 units) -->
+                <div id="threshold-alert" class="alert-notice hidden">
+                    <div class="alert-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </div>
+                    <div id="threshold-message"></div>
+                </div>
+
+                <!-- Requirement 7: Dedicated Distribution Details Button -->
+                <button type="button" id="btn-toggle-distribution" class="btn-distribution-toggle" aria-expanded="false" aria-controls="distribution-container">
+                    <div class="toggle-left">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--electric-cyan);">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                        <span class="toggle-text">⚡ View Slab Distribution Details</span>
+                    </div>
+                    <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+
+                <!-- Requirement 7: Detailed Distribution Section (Shown ONLY when button clicked!) -->
+                <div id="distribution-container" class="distribution-container" aria-live="polite">
+                    <div class="dist-header-row">
+                        <div class="dist-title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--electric-cyan);">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            Slab-wise Distribution Breakdown
+                        </div>
+                        <div id="dist-category-badge" class="dist-badge">Consumption Upto 500 Unit</div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="dist-table" aria-label="Slab Distribution Table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tariff Slab</th>
+                                    <th scope="col">Units Used</th>
+                                    <th scope="col">Cost per Unit</th>
+                                    <th scope="col" class="cost-col">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dist-table-body">
+                                <!-- Populated dynamically by app.js -->
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><strong>Total Bimonthly Bill</strong></td>
+                                    <td id="dist-total-units"><strong>350 Units</strong></td>
+                                    <td style="color: var(--text-secondary);">&mdash;</td>
+                                    <td id="dist-total-cost" class="cost-col" style="color: var(--electric-cyan); font-size: 1.05rem;"><strong>₹ 705.00</strong></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+
+        <!-- Official Tariff Reference Accordion (Matching User's "TAMILNADU ELECTRICITY BILL - NEW TARIFF" Chart) -->
+        <section class="tariff-reference-card">
+            <button type="button" id="btn-toggle-reference" class="reference-toggle-btn" aria-expanded="false">
+                <span style="display: flex; align-items: center; gap: 10px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--electric-cyan);">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    Tamil Nadu Electricity Bill — New Tariff Reference Chart
+                </span>
+                <svg class="ref-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transition: transform 0.3s ease;">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+
+            <div id="reference-content" class="reference-content">
+                <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px;">
+                    Exact tariff schedule from the <strong>TAMILNADU ELECTRICITY BILL - NEW TARIFF</strong> chart.
+                </p>
+
+                <div class="reference-grids">
+                    <!-- Column 1: Consumption Upto 500 Unit -->
+                    <div class="ref-box">
+                        <div class="ref-box-title">
+                            <span style="color: var(--electric-green);">&bull;</span>
+                            Consumption Upto 500 Unit
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Units From</th>
+                                    <th>To Units</th>
+                                    <th>Unit Cost / KWH</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>200</td>
+                                    <td style="color: var(--electric-green); font-weight:700;">₹ 0.00 (Free)</td>
+                                </tr>
+                                <tr>
+                                    <td>201</td>
+                                    <td>400</td>
+                                    <td>₹ 4.70</td>
+                                </tr>
+                                <tr>
+                                    <td>401</td>
+                                    <td>500</td>
+                                    <td>₹ 6.30</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Column 2: Consumption Above 500 Unit -->
+                    <div class="ref-box">
+                        <div class="ref-box-title">
+                            <span style="color: var(--electric-amber);">&bull;</span>
+                            Consumption Above 500 Unit
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Units From</th>
+                                    <th>To Units</th>
+                                    <th>Unit Cost / KWH</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>100</td>
+                                    <td style="color: var(--electric-green); font-weight:700;">0 (Free)</td>
+                                </tr>
+                                <tr>
+                                    <td>101</td>
+                                    <td>400</td>
+                                    <td>₹ 4.70</td>
+                                </tr>
+                                <tr>
+                                    <td>401</td>
+                                    <td>500</td>
+                                    <td>₹ 6.30</td>
+                                </tr>
+                                <tr>
+                                    <td>501</td>
+                                    <td>600</td>
+                                    <td>₹ 8.40</td>
+                                </tr>
+                                <tr>
+                                    <td>601</td>
+                                    <td>800</td>
+                                    <td>₹ 9.45</td>
+                                </tr>
+                                <tr>
+                                    <td>801</td>
+                                    <td>1000</td>
+                                    <td>₹ 10.50</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Above 1000 Units</td>
+                                    <td>₹ 11.55</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </div>
+
+    <!-- Scripts (Explicit relative paths) -->
+    <script src="./js/tariff.js"></script>
+    <script src="./js/app.js"></script>
+</body>
+</html>

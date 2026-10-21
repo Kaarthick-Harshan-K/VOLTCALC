@@ -11,7 +11,1094 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Modern Stylesheet (Explicit relative path) -->
+    <!-- External Stylesheet Link -->
     <link rel="stylesheet" href="./css/style.css">
+    
+    <!-- Directly Connected CSS (Embedded in HTML to guarantee 100% styling on Vercel deployment) -->
+    <style>
+/* ==========================================================================
+   VoltCalc TN - Electricity Bill Calculator
+   Modern Glassmorphic & Electric-themed Styling
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+    /* Color Palette - Dark Theme (Default) */
+    --bg-overlay: linear-gradient(135deg, rgba(8, 15, 30, 0.90) 0%, rgba(12, 22, 44, 0.85) 50%, rgba(4, 9, 20, 0.94) 100%);
+    --card-bg: rgba(15, 23, 42, 0.72);
+    --card-border: rgba(0, 242, 254, 0.22);
+    --card-border-hover: rgba(0, 242, 254, 0.55);
+    --glass-highlight: rgba(255, 255, 255, 0.06);
+
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --text-accent: #00f2fe;
+
+    --electric-cyan: #00f2fe;
+    --electric-blue: #4facfe;
+    --electric-purple: #7928ca;
+    --electric-amber: #f59e0b;
+    --electric-green: #10b981;
+    --electric-glow: 0 0 24px rgba(0, 242, 254, 0.35);
+    --electric-glow-strong: 0 0 35px rgba(0, 242, 254, 0.65);
+
+    --input-bg: rgba(10, 18, 36, 0.75);
+    --input-border: rgba(0, 242, 254, 0.3);
+    --input-focus: #00f2fe;
+
+    --btn-primary-bg: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+    --btn-primary-text: #051026;
+    --btn-primary-shadow: 0 4px 20px rgba(0, 242, 254, 0.4);
+
+    --pill-bg: rgba(255, 255, 255, 0.05);
+    --pill-border: rgba(255, 255, 255, 0.12);
+    --pill-hover: rgba(0, 242, 254, 0.15);
+
+    /* Stepper Arrow Controls - Dark Mode (Vibrant High-Contrast Electric Cyan) */
+    --stepper-bg: rgba(0, 242, 254, 0.14);
+    --stepper-border: rgba(0, 242, 254, 0.45);
+    --stepper-arrow-color: #00f2fe;
+    --stepper-hover-bg: rgba(0, 242, 254, 0.32);
+    --stepper-hover-color: #ffffff;
+
+    --table-header: rgba(0, 242, 254, 0.08);
+    --table-row-even: rgba(255, 255, 255, 0.02);
+    --table-row-hover: rgba(0, 242, 254, 0.06);
+    --table-border: rgba(255, 255, 255, 0.08);
+
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+
+    --transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+    /* Color Palette - Light Theme */
+    --bg-overlay: linear-gradient(135deg, rgba(240, 247, 255, 0.88) 0%, rgba(225, 239, 255, 0.84) 50%, rgba(244, 249, 255, 0.94) 100%);
+    --card-bg: rgba(255, 255, 255, 0.82);
+    --card-border: rgba(0, 140, 230, 0.25);
+    --card-border-hover: rgba(0, 140, 230, 0.6);
+    --glass-highlight: rgba(255, 255, 255, 0.8);
+
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --text-accent: #0284c7;
+
+    --electric-cyan: #0284c7;
+    --electric-blue: #0ea5e9;
+    --electric-purple: #6366f1;
+    --electric-amber: #d97706;
+    --electric-green: #059669;
+    --electric-glow: 0 0 20px rgba(2, 132, 199, 0.25);
+    --electric-glow-strong: 0 0 30px rgba(2, 132, 199, 0.45);
+
+    --input-bg: rgba(255, 255, 255, 0.95);
+    --input-border: rgba(2, 132, 199, 0.35);
+    --input-focus: #0284c7;
+
+    --btn-primary-bg: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+    --btn-primary-text: #ffffff;
+    --btn-primary-shadow: 0 4px 20px rgba(2, 132, 199, 0.35);
+
+    --pill-bg: rgba(2, 132, 199, 0.07);
+    --pill-border: rgba(2, 132, 199, 0.2);
+    --pill-hover: rgba(2, 132, 199, 0.15);
+
+    /* Stepper Arrow Controls - Light Mode (High-Contrast Electric Royal Blue) */
+    --stepper-bg: rgba(2, 132, 199, 0.12);
+    --stepper-border: rgba(2, 132, 199, 0.45);
+    --stepper-arrow-color: #0284c7;
+    --stepper-hover-bg: rgba(2, 132, 199, 0.26);
+    --stepper-hover-color: #0369a1;
+
+    --table-header: rgba(2, 132, 199, 0.08);
+    --table-row-even: rgba(2, 132, 199, 0.02);
+    --table-row-hover: rgba(2, 132, 199, 0.06);
+    --table-border: rgba(2, 132, 199, 0.12);
+}
+
+/* Reset & Base Setup */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    background-color: #080f1e;
+    transition: color 0.3s ease;
+}
+
+/* Transformer Background with Parallax Feel */
+.bg-transformer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('assets/transformer.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    z-index: -2;
+    transform: scale(1.03);
+    transition: transform 0.5s ease-out;
+}
+
+.bg-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-overlay);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: -1;
+    transition: background 0.4s ease;
+}
+
+/* Ambient Electric Arc Canvas / Energy Sparks */
+.electric-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.65;
+}
+
+/* Layout Container */
+.app-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+/* Header & Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-radius: var(--radius-lg);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.brand-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, rgba(0, 242, 254, 0.2) 0%, rgba(79, 172, 254, 0.2) 100%);
+    border: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--electric-cyan);
+    box-shadow: var(--electric-glow);
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-icon-box::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    50%, 100% { left: 100%; }
+}
+
+.brand-title-group h1 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+}
+
+.brand-title-group h1 span.highlight {
+    background: linear-gradient(90deg, var(--electric-cyan), var(--electric-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.brand-tagline {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+/* Header Action Controls */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Dark Mode Switcher Button */
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: var(--pill-bg);
+    border: 1px solid var(--pill-border);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    user-select: none;
+}
+
+.theme-toggle-btn:hover {
+    border-color: var(--card-border-hover);
+    box-shadow: var(--electric-glow);
+    background: var(--pill-hover);
+    transform: translateY(-1px);
+}
+
+.theme-icon-container {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.sun-icon, .moon-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+[data-theme="dark"] .sun-icon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0);
+    position: absolute;
+}
+[data-theme="dark"] .moon-icon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+    color: var(--electric-cyan);
+}
+
+[data-theme="light"] .sun-icon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+    color: var(--electric-amber);
+}
+[data-theme="light"] .moon-icon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0);
+    position: absolute;
+}
+
+/* Grid Info Ribbon */
+.hero-ribbon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 14px 20px;
+    background: rgba(0, 242, 254, 0.06);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    font-size: 0.88rem;
+}
+
+.ribbon-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+}
+
+.ribbon-item .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--electric-green);
+    box-shadow: 0 0 10px var(--electric-green);
+    animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.ribbon-item strong {
+    color: var(--text-primary);
+}
+
+/* Main Grid Layout */
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 28px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Card Styling */
+.glass-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-xl);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    padding: 30px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--electric-cyan), transparent);
+    opacity: 0.6;
+}
+
+.glass-card:hover {
+    border-color: var(--card-border-hover);
+}
+
+/* Input Section */
+.card-header {
+    margin-bottom: 24px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    background: rgba(0, 242, 254, 0.12);
+    border: 1px solid var(--card-border);
+    color: var(--electric-cyan);
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.card-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+}
+
+/* Input Field Component */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.input-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-label {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.bimonthly-tag {
+    font-size: 0.75rem;
+    color: var(--text-accent);
+    background: var(--pill-bg);
+    padding: 2px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--pill-border);
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Hide default browser spin buttons to prevent overlapping */
+.electric-meter-input::-webkit-outer-spin-button,
+.electric-meter-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.electric-meter-input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.electric-meter-input {
+    width: 100%;
+    padding: 16px 190px 16px 20px;
+    font-family: 'Space Grotesk', monospace, sans-serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: var(--input-bg);
+    border: 2px solid var(--input-border);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: var(--transition);
+    letter-spacing: -0.02em;
+}
+
+.electric-meter-input:focus {
+    border-color: var(--input-focus);
+    box-shadow: var(--electric-glow);
+    background: rgba(10, 22, 45, 0.9);
+}
+
+[data-theme="light"] .electric-meter-input:focus {
+    background: #ffffff;
+}
+
+/* Stepper Arrows and Unit Addon Container */
+.input-controls-group {
+    position: absolute;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Custom Increase & Decrease Arrow Buttons situated just before the units */
+.stepper-arrows {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    background: var(--stepper-bg);
+    border: 1.5px solid var(--stepper-border);
+    border-radius: 8px;
+    padding: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+}
+
+.stepper-arrows:hover {
+    border-color: var(--stepper-arrow-color);
+    box-shadow: 0 0 12px var(--stepper-arrow-color);
+}
+
+.stepper-arrow-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 18px;
+    border-radius: 4px;
+    color: var(--stepper-arrow-color);
+    transition: var(--transition);
+    outline: none;
+    padding: 0;
+}
+
+.stepper-arrow-btn:hover {
+    background: var(--stepper-hover-bg);
+    color: var(--stepper-hover-color);
+}
+
+.stepper-arrow-btn:active {
+    transform: scale(0.9);
+}
+
+.unit-addon {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--electric-cyan);
+    pointer-events: none;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+/* Input Helpers & Quick Presets */
+.presets-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+.presets-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 26px;
+}
+
+.preset-chip {
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--pill-bg);
+    border: 1px solid var(--pill-border);
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.preset-chip:hover {
+    border-color: var(--card-border-hover);
+    color: var(--electric-cyan);
+    background: var(--pill-hover);
+    transform: translateY(-1px);
+}
+
+.preset-chip.active {
+    background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(79, 172, 254, 0.2));
+    border-color: var(--electric-cyan);
+    color: var(--electric-cyan);
+    box-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
+}
+
+/* Primary Action Button */
+.btn-calculate {
+    width: 100%;
+    padding: 16px 24px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: var(--btn-primary-shadow);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-calculate:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--electric-glow-strong);
+}
+
+.btn-calculate:active {
+    transform: translateY(0);
+}
+
+/* Results Display Panel */
+.results-card {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.bill-hero-box {
+    padding: 24px 28px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, rgba(0, 242, 254, 0.08) 0%, rgba(79, 172, 254, 0.04) 100%);
+    border: 1.5px solid var(--card-border);
+    box-shadow: inset 0 0 20px rgba(0, 242, 254, 0.05);
+    position: relative;
+}
+
+.bill-hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.bill-caption {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.slab-badge {
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.slab-badge.tier-subsidized {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: var(--electric-green);
+}
+
+.slab-badge.tier-high {
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    color: var(--electric-amber);
+}
+
+.bill-amount-display {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text-primary);
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    letter-spacing: -0.03em;
+}
+
+.currency-sym {
+    font-size: 2.2rem;
+    color: var(--electric-cyan);
+}
+
+.bill-hero-meta {
+    margin-top: 10px;
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+}
+
+/* Key Metrics Grid */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+@media (max-width: 520px) {
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.metric-tile {
+    padding: 16px 18px;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--pill-border);
+    transition: var(--transition);
+}
+
+.metric-tile:hover {
+    border-color: var(--card-border);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.metric-title {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.metric-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.metric-value.accent-cyan {
+    color: var(--electric-cyan);
+}
+
+.metric-sub {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+/* Proactive 500 Unit Notice Alert */
+.alert-notice {
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    line-height: 1.45;
+}
+
+.alert-notice.hidden {
+    display: none;
+}
+
+.alert-icon {
+    flex-shrink: 0;
+    color: var(--electric-amber);
+    margin-top: 2px;
+}
+
+/* Requirement 7: Dedicated Distribution Details Button */
+.btn-distribution-toggle {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: var(--radius-md);
+    background: var(--pill-bg);
+    border: 1.5px solid var(--card-border);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: var(--transition);
+    user-select: none;
+}
+
+.btn-distribution-toggle:hover {
+    background: var(--pill-hover);
+    border-color: var(--card-border-hover);
+    box-shadow: var(--electric-glow);
+}
+
+.btn-distribution-toggle.active {
+    background: rgba(0, 242, 254, 0.12);
+    border-color: var(--electric-cyan);
+    color: var(--electric-cyan);
+}
+
+.btn-distribution-toggle .toggle-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggle-chevron {
+    transition: transform 0.3s ease;
+}
+
+.btn-distribution-toggle.active .toggle-chevron {
+    transform: rotate(180deg);
+}
+
+/* Requirement 7: Detailed Distribution Container (Hidden by default!) */
+.distribution-container {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    border-radius: var(--radius-lg);
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--card-border);
+    animation: fadeInSlideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+[data-theme="light"] .distribution-container {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.distribution-container.visible {
+    display: flex;
+}
+
+@keyframes fadeInSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dist-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--table-border);
+}
+
+.dist-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dist-badge {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* Table Design */
+.table-responsive {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.dist-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.88rem;
+    text-align: left;
+}
+
+.dist-table th {
+    background: var(--table-header);
+    color: var(--text-accent);
+    font-weight: 700;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--table-border);
+    white-space: nowrap;
+}
+
+.dist-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--table-border);
+    color: var(--text-secondary);
+}
+
+.dist-table tr.active-row td {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.dist-table tr:hover td {
+    background: var(--table-row-hover);
+}
+
+.dist-table td.rate-col {
+    font-weight: 600;
+    color: var(--electric-cyan);
+}
+
+.dist-table td.cost-col {
+    font-family: 'Space Grotesk', monospace;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: right;
+}
+
+.dist-table th.cost-col {
+    text-align: right;
+}
+
+.dist-table tfoot td {
+    padding: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: var(--table-header);
+    border-top: 2px solid var(--card-border);
+}
+
+/* Visual Progress Bar per Slab */
+.slab-meter-bar {
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    margin-top: 6px;
+    overflow: hidden;
+}
+
+.slab-meter-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--electric-cyan), var(--electric-blue));
+    border-radius: 999px;
+    transition: width 0.6s ease;
+}
+
+/* Official Tariff Reference Accordion */
+.tariff-reference-card {
+    border-radius: var(--radius-lg);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 24px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.reference-toggle-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 4px 0;
+}
+
+.reference-content {
+    display: none;
+    margin-top: 20px;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.reference-content.visible {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.reference-grids {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .reference-grids {
+        grid-template-columns: 1fr;
+    }
+}
+
+.ref-box {
+    padding: 16px;
+    border-radius: var(--radius-md);
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--pill-border);
+}
+
+[data-theme="light"] .ref-box {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.ref-box-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--electric-cyan);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ref-box table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.84rem;
+}
+
+.ref-box th, .ref-box td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--table-border);
+    text-align: left;
+}
+
+.ref-box th {
+    color: var(--text-muted);
+}
+
+/* Electricity Glow Pulse Utility */
+.pulse-glow {
+    animation: glowPulse 2.5s infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 242, 254, 0.6);
+    }
+}
+
+    </style>
     <!-- Favicon SVG (Electric Lightning Bolt - No TNEB logo) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f2fe'><path d='M13 2L3 14h9l-1 8 10-12h-9l1-8z'/></svg>">
 </head>
@@ -407,7 +1494,486 @@
     </div>
 
     <!-- Scripts (Explicit relative paths) -->
+    <!-- External Script Links -->
     <script src="./js/tariff.js"></script>
     <script src="./js/app.js"></script>
+    
+    <!-- Directly Connected JavaScript (Guarantees calculation logic executes even if external files are blocked) -->
+    <script>
+    if (!window.VOLTCALC_LOADED) {
+        window.VOLTCALC_LOADED = true;
+/**
+ * TNEB Electricity Bill Calculator Engine (Updated Tariff Slabs)
+ * Matches precisely with "TAMILNADU ELECTRICITY BILL - NEW TARIFF"
+ */
+
+const TARIFF_DATA = {
+    tierBelow500: {
+        title: "Consumption Upto 500 Unit",
+        subtitle: "Concessional Domestic Slab (First 200 Units Free)",
+        slabs: [
+            { id: 1, range: "1 to 200 units", min: 0, max: 200, rate: 0.00, label: "₹ 0.00 (Free)" },
+            { id: 2, range: "201 to 400 units", min: 200, max: 400, rate: 4.70, label: "₹ 4.70" },
+            { id: 3, range: "401 to 500 units", min: 400, max: 500, rate: 6.30, label: "₹ 6.30" }
+        ]
+    },
+    tierAbove500: {
+        title: "Consumption Above 500 Unit",
+        subtitle: "Standard High-Usage Slab (First 100 Units Free)",
+        slabs: [
+            { id: 1, range: "1 to 100 units", min: 0, max: 100, rate: 0.00, label: "0 (Free)" },
+            { id: 2, range: "101 to 400 units", min: 100, max: 400, rate: 4.70, label: "₹ 4.70" },
+            { id: 3, range: "401 to 500 units", min: 400, max: 500, rate: 6.30, label: "₹ 6.30" },
+            { id: 4, range: "501 to 600 units", min: 500, max: 600, rate: 8.40, label: "₹ 8.40" },
+            { id: 5, range: "601 to 800 units", min: 600, max: 800, rate: 9.45, label: "₹ 9.45" },
+            { id: 6, range: "801 to 1000 units", min: 800, max: 1000, rate: 10.50, label: "₹ 10.50" },
+            { id: 7, range: "Above 1000 Units", min: 1000, max: Infinity, rate: 11.55, label: "₹ 11.55" }
+        ]
+    }
+};
+
+/**
+ * Calculates bill breakdown for given units consumed in 2 months.
+ * @param {number} units - Bimonthly electricity units consumed
+ * @returns {object} calculation results
+ */
+function calculateEBBill(units) {
+    const rawUnits = Number(units);
+    if (isNaN(rawUnits) || rawUnits < 0) {
+        return {
+            isValid: false,
+            units: 0,
+            totalAmount: 0,
+            avgCostPerUnit: 0,
+            tier: null,
+            breakdown: [],
+            freeUnits: 0,
+            billableUnits: 0
+        };
+    }
+
+    const totalUnits = Math.round(rawUnits * 100) / 100;
+    const isAbove500 = totalUnits > 500;
+    const tierConfig = isAbove500 ? TARIFF_DATA.tierAbove500 : TARIFF_DATA.tierBelow500;
+    const slabs = tierConfig.slabs;
+
+    let totalAmount = 0;
+    let accumulatedUnits = 0;
+    const breakdown = [];
+
+    for (const slab of slabs) {
+        const slabCapacity = slab.max === Infinity ? Infinity : (slab.max - slab.min);
+        let unitsInThisSlab = 0;
+
+        if (totalUnits > slab.min) {
+            if (slab.max === Infinity) {
+                unitsInThisSlab = totalUnits - slab.min;
+            } else {
+                unitsInThisSlab = Math.min(totalUnits - slab.min, slabCapacity);
+            }
+        }
+
+        const slabCost = Math.round(unitsInThisSlab * slab.rate * 100) / 100;
+        totalAmount += slabCost;
+        accumulatedUnits += unitsInThisSlab;
+
+        breakdown.push({
+            id: slab.id,
+            range: slab.range,
+            rate: slab.rate,
+            rateFormatted: slab.rate === 0 ? "₹ 0.00 (Free)" : `₹ ${slab.rate.toFixed(2)}`,
+            units: unitsInThisSlab,
+            cost: slabCost,
+            costFormatted: `₹ ${slabCost.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+            active: unitsInThisSlab > 0,
+            percentageOfTotal: totalUnits > 0 ? ((unitsInThisSlab / totalUnits) * 100) : 0
+        });
+    }
+
+    totalAmount = Math.round(totalAmount * 100) / 100;
+    const avgCostPerUnit = totalUnits > 0 ? (totalAmount / totalUnits) : 0;
+    
+    // In new tariff: 0-500 category gets 200 free units; >500 category gets 100 free units
+    const freeUnitsMax = isAbove500 ? 100 : 200;
+    const freeUnits = Math.min(totalUnits, freeUnitsMax);
+    const billableUnits = Math.max(0, totalUnits - freeUnitsMax);
+
+    return {
+        isValid: true,
+        units: totalUnits,
+        totalAmount: totalAmount,
+        totalAmountFormatted: `₹ ${totalAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+        avgCostPerUnit: avgCostPerUnit,
+        avgCostFormatted: `₹ ${avgCostPerUnit.toFixed(2)}`,
+        tierCategory: isAbove500 ? "Consumption Above 500 Unit" : "Consumption Upto 500 Unit",
+        tierBadge: isAbove500 ? "Above 500 Units Slab" : "Upto 500 Units (200 Free Units)",
+        tierClass: isAbove500 ? "tier-high" : "tier-subsidized",
+        breakdown: breakdown,
+        freeUnits: freeUnits,
+        freeUnitsMax: freeUnitsMax,
+        billableUnits: billableUnits,
+        isAbove500: isAbove500
+    };
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { calculateEBBill, TARIFF_DATA };
+}
+
+
+/**
+ * VoltCalc TN - Main Application Logic
+ * Interactive UI, Electric Effects, Theme Toggle, and Real-time Tariff Rendering
+ * Updated according to the latest "TAMILNADU ELECTRICITY BILL - NEW TARIFF" schedule.
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM Elements
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const unitsInput = document.getElementById('units-input');
+    const btnCalculate = document.getElementById('btn-calculate');
+    const presetChips = document.querySelectorAll('.preset-chip');
+    
+    // Output Elements
+    const billAmountEl = document.getElementById('bill-amount');
+    const tierBadgeEl = document.getElementById('tier-badge');
+    const avgRateEl = document.getElementById('avg-rate');
+    const freeUnitsEl = document.getElementById('free-units');
+    const freeUnitsSubEl = document.getElementById('free-units-sub');
+    const billableUnitsEl = document.getElementById('billable-units');
+    const thresholdAlertEl = document.getElementById('threshold-alert');
+    const thresholdMessageEl = document.getElementById('threshold-message');
+    
+    // Distribution Toggle & Container
+    const btnToggleDist = document.getElementById('btn-toggle-distribution');
+    const distContainer = document.getElementById('distribution-container');
+    const distTableBody = document.getElementById('dist-table-body');
+    const distTotalUnitsEl = document.getElementById('dist-total-units');
+    const distTotalCostEl = document.getElementById('dist-total-cost');
+    const distCategoryBadge = document.getElementById('dist-category-badge');
+
+    // Reference Accordion
+    const btnToggleRef = document.getElementById('btn-toggle-reference');
+    const refContent = document.getElementById('reference-content');
+
+    // Canvas for Electrical Spark/Energy Aura
+    initElectricCanvas();
+
+    // 1. Theme Toggle System
+    initTheme();
+
+    function initTheme() {
+        const savedTheme = localStorage.getItem('voltcalc_theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        } else {
+            // Default to dark theme for electric ambience
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('voltcalc_theme', newTheme);
+            triggerElectricFlash();
+        });
+    }
+
+    // 2. Preset Chips Click Handlers
+    presetChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            const val = chip.getAttribute('data-units');
+            unitsInput.value = val;
+            presetChips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            updateBillCalculation();
+        });
+    });
+
+    // 3. Units Input Listeners
+    unitsInput.addEventListener('input', () => {
+        syncPresetChips(unitsInput.value);
+        updateBillCalculation();
+    });
+
+    unitsInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            updateBillCalculation();
+            triggerElectricFlash();
+        }
+    });
+
+    btnCalculate.addEventListener('click', () => {
+        updateBillCalculation();
+        triggerElectricFlash();
+    });
+
+    // 3b. Stepper Arrow Buttons Handlers (Situated right before the SI units badge)
+    const btnUnitInc = document.getElementById('btn-unit-inc');
+    const btnUnitDec = document.getElementById('btn-unit-dec');
+
+    if (btnUnitInc) {
+        btnUnitInc.addEventListener('click', () => {
+            const current = parseFloat(unitsInput.value) || 0;
+            unitsInput.value = Math.max(0, current + 1);
+            syncPresetChips(unitsInput.value);
+            updateBillCalculation();
+            triggerElectricFlash();
+        });
+    }
+
+    if (btnUnitDec) {
+        btnUnitDec.addEventListener('click', () => {
+            const current = parseFloat(unitsInput.value) || 0;
+            unitsInput.value = Math.max(0, current - 1);
+            syncPresetChips(unitsInput.value);
+            updateBillCalculation();
+            triggerElectricFlash();
+        });
+    }
+
+    function syncPresetChips(currentValue) {
+        presetChips.forEach(chip => {
+            if (chip.getAttribute('data-units') === String(currentValue).trim()) {
+                chip.classList.add('active');
+            } else {
+                chip.classList.remove('active');
+            }
+        });
+    }
+
+    // 4. Requirement 7: Dedicated Distribution Details Toggle Button
+    let isDistributionVisible = false;
+    btnToggleDist.addEventListener('click', () => {
+        isDistributionVisible = !isDistributionVisible;
+        if (isDistributionVisible) {
+            distContainer.classList.add('visible');
+            btnToggleDist.classList.add('active');
+            btnToggleDist.querySelector('.toggle-text').textContent = 'Hide Slab Distribution Details';
+            // Smoothly scroll down slightly to bring the table into view
+            setTimeout(() => {
+                distContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        } else {
+            distContainer.classList.remove('visible');
+            btnToggleDist.classList.remove('active');
+            btnToggleDist.querySelector('.toggle-text').textContent = '⚡ View Slab Distribution Details';
+        }
+    });
+
+    // 5. Official Tariff Reference Accordion Toggle
+    let isRefVisible = false;
+    if (btnToggleRef && refContent) {
+        btnToggleRef.addEventListener('click', () => {
+            isRefVisible = !isRefVisible;
+            if (isRefVisible) {
+                refContent.classList.add('visible');
+                btnToggleRef.querySelector('.ref-toggle-icon').style.transform = 'rotate(180deg)';
+            } else {
+                refContent.classList.remove('visible');
+                btnToggleRef.querySelector('.ref-toggle-icon').style.transform = 'rotate(0deg)';
+            }
+        });
+    }
+
+    // 6. Calculation and UI Rendering
+    function updateBillCalculation() {
+        const val = unitsInput.value.trim();
+        const units = parseFloat(val);
+
+        if (isNaN(units) || units < 0) {
+            renderEmptyState();
+            return;
+        }
+
+        const result = calculateEBBill(units);
+        renderBillResult(result);
+    }
+
+    function renderEmptyState() {
+        billAmountEl.textContent = '0.00';
+        avgRateEl.textContent = '₹ 0.00 / unit';
+        freeUnitsEl.textContent = '0 Units';
+        if (freeUnitsSubEl) freeUnitsSubEl.textContent = '1 to 200 units free (upto 500U)';
+        billableUnitsEl.textContent = '0 Units';
+        tierBadgeEl.className = 'slab-badge tier-subsidized';
+        tierBadgeEl.textContent = 'Consumption Upto 500 Unit';
+        thresholdAlertEl.classList.add('hidden');
+        distTableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 18px; color: var(--text-muted);">Enter units to see slab distribution</td></tr>`;
+        distTotalUnitsEl.textContent = '0 Units';
+        distTotalCostEl.textContent = '₹ 0.00';
+    }
+
+    function renderBillResult(result) {
+        // Animate counter for hero bill amount
+        animateAmountValue(result.totalAmount);
+
+        // Tier Badge
+        tierBadgeEl.className = `slab-badge ${result.tierClass}`;
+        tierBadgeEl.textContent = result.tierBadge;
+
+        // Metric Tiles
+        avgRateEl.textContent = `${result.avgCostFormatted} / unit`;
+        freeUnitsEl.textContent = `${result.freeUnits} Units`;
+        if (freeUnitsSubEl) {
+            freeUnitsSubEl.textContent = result.isAbove500 
+                ? '1 to 100 units free (above 500U)' 
+                : '1 to 200 units free (upto 500U)';
+        }
+        billableUnitsEl.textContent = `${result.billableUnits} Units`;
+
+        // 500 Unit Threshold Alert with New Tariff Dynamics
+        if (result.units >= 480 && result.units <= 500) {
+            thresholdAlertEl.classList.remove('hidden');
+            thresholdMessageEl.innerHTML = `<strong>Attention:</strong> You are currently at <strong>${result.units} units</strong>. Under <em>Consumption Upto 500 Unit</em>, your first <strong>200 units are 100% Free</strong> (Bill = ₹${result.totalAmount.toFixed(2)}). Crossing 500 units reduces your free quota to 100 units and charges units 101–400 at ₹4.70!`;
+        } else if (result.units > 500 && result.units <= 530) {
+            thresholdAlertEl.classList.remove('hidden');
+            thresholdMessageEl.innerHTML = `<strong>Tariff Shift Notice:</strong> At <strong>${result.units} units</strong>, you fall under <em>Consumption Above 500 Unit</em>. Only the first 100 units are free (101–400 units are charged at ₹4.70/unit).`;
+        } else {
+            thresholdAlertEl.classList.add('hidden');
+        }
+
+        // Render Distribution Table
+        distCategoryBadge.textContent = result.tierCategory;
+        distTotalUnitsEl.textContent = `${result.units} Units`;
+        distTotalCostEl.textContent = result.totalAmountFormatted;
+
+        distTableBody.innerHTML = '';
+        result.breakdown.forEach((slab, index) => {
+            const tr = document.createElement('tr');
+            if (slab.active) {
+                tr.classList.add('active-row');
+            }
+
+            const isFree = slab.rate === 0;
+            const rateBadge = isFree 
+                ? `<span style="color: var(--electric-green); font-weight:700;">₹ 0.00 (Free)</span>`
+                : `₹ ${slab.rate.toFixed(2)}`;
+
+            tr.innerHTML = `
+                <td>
+                    <div style="font-weight: 600; color: var(--text-primary);">${index + 1}. ${slab.range}</div>
+                    <div class="slab-meter-bar">
+                        <div class="slab-meter-fill" style="width: ${slab.percentageOfTotal}%;"></div>
+                    </div>
+                </td>
+                <td>
+                    <span style="font-weight: ${slab.units > 0 ? '700' : '400'}; color: ${slab.units > 0 ? 'var(--text-primary)' : 'var(--text-muted)'};">
+                        ${slab.units} Units
+                    </span>
+                    ${slab.units > 0 ? `<div style="font-size: 0.74rem; color: var(--text-muted);">${slab.percentageOfTotal.toFixed(1)}% of total</div>` : ''}
+                </td>
+                <td class="rate-col">${rateBadge}</td>
+                <td class="cost-col">${slab.costFormatted}</td>
+            `;
+            distTableBody.appendChild(tr);
+        });
+    }
+
+    // Number roll animation
+    let animationFrameId = null;
+    function animateAmountValue(targetVal) {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        const startVal = parseFloat(billAmountEl.textContent.replace(/,/g, '')) || 0;
+        const duration = 380;
+        const startTime = performance.now();
+
+        function updateStep(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            const currentVal = startVal + (targetVal - startVal) * easeOut;
+            billAmountEl.textContent = currentVal.toLocaleString('en-IN', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+
+            if (progress < 1) {
+                animationFrameId = requestAnimationFrame(updateStep);
+            } else {
+                billAmountEl.textContent = targetVal.toLocaleString('en-IN', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            }
+        }
+        animationFrameId = requestAnimationFrame(updateStep);
+    }
+
+    // Visual Spark effect on calculate
+    function triggerElectricFlash() {
+        const card = document.querySelector('.bill-hero-box');
+        if (card) {
+            card.style.transition = 'box-shadow 0.15s ease';
+            card.style.boxShadow = '0 0 35px rgba(0, 242, 254, 0.7), inset 0 0 25px rgba(0, 242, 254, 0.3)';
+            setTimeout(() => {
+                card.style.boxShadow = 'inset 0 0 20px rgba(0, 242, 254, 0.05)';
+            }, 350);
+        }
+    }
+
+    // 7. Ambient Electric Spark Canvas
+    function initElectricCanvas() {
+        const canvas = document.getElementById('electric-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const particles = [];
+        const particleCount = 28;
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.8,
+                vy: (Math.random() - 0.5) * 0.8 - 0.3,
+                radius: Math.random() * 2 + 1,
+                alpha: Math.random() * 0.6 + 0.2,
+                sparkLife: Math.random() * 80 + 40
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.sparkLife--;
+
+                if (p.sparkLife <= 0 || p.x < 0 || p.x > width || p.y < 0 || p.y > height) {
+                    p.x = Math.random() * width;
+                    p.y = Math.random() * height;
+                    p.sparkLife = Math.random() * 80 + 40;
+                }
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 242, 254, ${p.alpha})`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#00f2fe';
+                ctx.fill();
+            }
+
+            requestAnimationFrame(draw);
+        }
+        draw();
+    }
+
+    // Initial calculation with 350 units
+    updateBillCalculation();
+});
+
+    }
+    </script>
 </body>
 </html>
